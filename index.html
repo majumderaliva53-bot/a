@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ranar Welfare Community - Event RSVP</title>
+  <style>
+    :root {
+      --primary: #10b981;      /* NGO Emerald Green */
+      --primary-dark: #059669;
+      --accent: #f59e0b;       /* Soft Warm Amber */
+      --bg: #f3f4f6;
+      --card-bg: #ffffff;
+      --text: #1f2937;
+      --text-muted: #6b7280;
+      --border: #d1d5db;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    }
+
+    body {
+      background-color: var(--bg);
+      color: var(--text);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      padding: 20px 12px;
+    }
+
+    .rsvp-card {
+      background: var(--card-bg);
+      width: 100%;
+      max-width: 520px;
+      border-radius: 16px;
+      box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.05);
+      overflow: hidden;
+    }
+
+    .card-header {
+      background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+      color: white;
+      padding: 32px 24px;
+      text-align: center;
+    }
+
+    .card-header h1 {
+      font-size: 1.75rem;
+      font-weight: 700;
+      letter-spacing: -0.025em;
+      margin-bottom: 6px;
+    }
+
+    .card-header p {
+      font-size: 0.95rem;
+      opacity: 0.9;
+    }
+
+    .badge {
+      display: inline-block;
+      background: rgba(255, 255, 255, 0.2);
+      padding: 4px 12px;
+      border-radius: 20px;
+      font-size: 0.75rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      margin-bottom: 12px;
+    }
+
+    .card-body {
+      padding: 28px 24px;
+    }
+
+    .form-group {
+      margin-bottom: 20px;
+    }
+
+    .form-group label {
+      display: block;
+      font-size: 0.875rem;
+      font-weight: 600;
+      margin-bottom: 6px;
+      color: var(--text);
+    }
+
+    .form-group input,
+    .form-group select,
+    .form-group textarea {
+      width: 100%;
+      padding: 12px 14px;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      font-size: 1rem;
+      background-color: #fff;
+      color: var(--text);
+      outline: none;
+      transition: all 0.2s ease-in-out;
+    }
+
+    .form-group input:focus,
+    .form-group select:focus,
+    .form-group textarea:focus {
+      border-color: var(--primary);
+      box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.2);
+    }
+
+    .radio-group {
+      display: flex;
+      gap: 12px;
+    }
+
+    .radio-card {
+      flex: 1;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 10px;
+      text-align: center;
+      cursor: pointer;
+      transition: border-color 0.2s;
+    }
+
+    .radio-card input {
+      display: none;
+    }
+
+    .radio-card span {
+      font-size: 0.9rem;
+      font-weight: 600;
+    }
+
+    .radio-card:has(input:checked) {
+      border-color: var(--primary);
+      background-color: rgba(16, 185, 129, 0.08);
+      color: var(--primary-dark);
+    }
+
+    .submit-btn {
+      width: 100%;
+      padding: 14px;
+      background-color: var(--primary);
+      color: white;
+      border: none;
+      border-radius: 8px;
+      font-size: 1rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background-color 0.2s;
+      margin-top: 8px;
+    }
+
+    .submit-btn:hover {
+      background-color: var(--primary-dark);
+    }
+
+    .submit-btn:disabled {
+      background-color: #9ca3af;
+      cursor: not-allowed;
+    }
+
+    #status-message {
+      margin-top: 16px;
+      padding: 12px;
+      border-radius: 8px;
+      font-size: 0.9rem;
+      text-align: center;
+      display: none;
+    }
+
+    #status-message.success {
+      background-color: #d1fae5;
+      color: #065f46;
+    }
+
+    #status-message.error {
+      background-color: #fee2e2;
+      color: #991b1b;
+    }
+
+    /* Responsive adjustment for small screens */
+    @media (max-width: 480px) {
+      .card-header {
+        padding: 24px 16px;
+      }
+
+      .card-body {
+        padding: 20px 16px;
+      }
+
+      .radio-group {
+        flex-direction: column;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="rsvp-card">
+    <div class="card-header">
+      <span class="badge">NGO Welfare Event</span>
+      <h1>Ranar Welfare Community</h1>
+      <p>Annual Community Meet & Event RSVP</p>
+    </div>
+
+    <div class="card-body">
+      <form id="rsvpForm">
+        
+        <div class="form-group">
+          <label for="fullName">Full Name *</label>
+          <input type="text" id="fullName" name="fullName" required placeholder="e.g., John Doe">
+        </div>
+
+        <div class="form-group">
+          <label for="email">Email Address *</label>
+          <input type="email" id="email" name="email" required placeholder="name@example.com">
+        </div>
+
+        <div class="form-group">
+          <label for="phone">Phone Number *</label>
+          <input type="tel" id="phone" name="phone" required placeholder="+1 234 567 8900">
+        </div>
+
+        <div class="form-group">
+          <label>Will you be attending? *</label>
+          <div class="radio-group">
+            <label class="radio-card">
+              <input type="radio" name="attendance" value="Attending" checked>
+              <span>Yes, Attending</span>
+            </label>
+            <label class="radio-card">
+              <input type="radio" name="attendance" value="Not Attending">
+              <span>Sorry, Can't Come</span>
+            </label>
+          </div>
+        </div>
+
+        <div class="form-group" id="guestsGroup">
+          <label for="guests">Number of Additional Guests</label>
+          <select id="guests" name="guests">
+            <option value="0">0 (Just Me)</option>
+            <option value="1">1 Guest</option>
+            <option value="2">2 Guests</option>
+            <option value="3+">3 or more Guests</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label for="dietary">Dietary Preferences / Notes</label>
+          <textarea id="dietary" name="dietary" rows="3" placeholder="e.g., Vegetarian, Vegan, Allergies, or general notes..."></textarea>
+        </div>
+
+        <button type="submit" class="submit-btn" id="submitBtn">Confirm RSVP</button>
+        <div id="status-message"></div>
+
+      </form>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
